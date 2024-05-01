@@ -102,9 +102,13 @@ exports.updateProfileController = async (req, res) => {
   try {
     const data = req.body;
     if (!data.password) {
-      const updatedUser = await UserModel.findByIdAndUpdate(data.id, data, {
-        new: true,
-      });
+      const updatedUser = await UserModel.findByIdAndUpdate(
+        data.user_id,
+        data,
+        {
+          new: true,
+        }
+      );
 
       res.status(200).send(successResponse(updatedUser));
     } else {
@@ -114,7 +118,7 @@ exports.updateProfileController = async (req, res) => {
           return err;
         }
         const updatedUser = await UserModel.findByIdAndUpdate(
-          data.id,
+          data.user_id,
           { ...data, password: hash },
           {
             new: true,

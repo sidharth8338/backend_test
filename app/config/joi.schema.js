@@ -18,6 +18,7 @@ exports.loginSchema = Joi.object({
 exports.updateProfileSchema = Joi.object({
   username: Joi.string().alphanum().min(3).max(30),
   password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
+  token: Joi.string().required(),
   email: Joi.string().email().lowercase(),
   confirm_password: Joi.ref("password"),
 })

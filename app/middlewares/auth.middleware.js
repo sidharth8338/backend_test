@@ -14,7 +14,7 @@ exports.isAuthenticated = async (req, res, next) => {
     process.env.JWT_AUTH_TOKEN_SECRET,
     async (err, data) => {
       if (data) {
-        req.body.id = data.id;
+        req.body.user_id = data.user_id;
         next();
       } else if (err.message === "TokenExpiredError") {
         return res
