@@ -101,25 +101,20 @@ exports.registerUser = async (req, res, next) => {
 exports.updateProfileController = async (req, res) => {
   try {
     const data = req.body;
-    hashedPassword = bcrypt.hash(
-      data.password,
-      saltRounds,
-      async (err, hash) => {
+    if (!data.password) {
+      const updatedUser = await UserModel.findByIdAndUpdate(data.id, data, {
+        new: true,
+      });
+
+      res.status(200).send(successResponse(updatedUser));
+    } else {
+      bcrypt.hash(data.password, saltRounds, async (err, hash) => {
         if (err) {
           res.status(406).send(errorResponse(err));
           return err;
         }
-        const updatedUser = await UserModel.findOneAndUpdate(
-          {
-            $or: [
-              {
-                email: data?.email,
-              },
-              {
-                username: data?.username,
-              },
-            ],
-          },
+        const updatedUser = await UserModel.findByIdAndUpdate(
+          data.id,
           { ...data, password: hash },
           {
             new: true,
@@ -127,8 +122,8 @@ exports.updateProfileController = async (req, res) => {
         );
 
         res.status(200).send(successResponse(updatedUser));
-      }
-    );
+      });
+    }
   } catch (e) {
     res.status(406).send(errorResponse(e));
   }

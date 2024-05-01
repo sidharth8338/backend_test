@@ -9,11 +9,16 @@ const {
   validateProfileUpdate,
   validateRegisterInput,
 } = require("../middlewares/validate.middleware");
+const { isAuthenticated } = require("../middlewares/auth.middleware");
 
 const router = express.Router();
 
 router.post("/login", validateLoginInput, authenticateUser);
-router.patch("/updateProfile", validateProfileUpdate, updateProfileController);
+router.patch(
+  "/updateProfile",
+  [validateProfileUpdate, isAuthenticated],
+  updateProfileController
+);
 router.post("/register", validateRegisterInput, registerUser);
 
 module.exports = router;
