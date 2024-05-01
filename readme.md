@@ -166,6 +166,8 @@ PATCH /api/v1/updateProfile
 
 ## Deployment
 
+### Vercel
+
 The API is deployed on Vercel using the following services:
 
 - [Vercel](https://vercel.com/) for deployment and hosting of the serverless functions.
@@ -189,7 +191,9 @@ The API is deployed on Vercel using the following services:
 }
 ```
 
+- To set up, head to your Vercel dashboard. Click on `Add New Project` and select `New Project from GitHub,` ensuring it's linked. Then, pass all the necessary `environment variables` for this project. You're all set!Then you need to go to your vercel dashboard and click on add new project then select new project from your github which is linked and then pass all the env variables which are required for this project and all set
+
 ## Configuration
 
 For the server, make sure to set up a `.env` file with your MongoDB connection URI.
-Adjust any other configuration parameters as needed.
+Adjust any other configuration parameters as needed. App Link -:https://sponsolytix-ek265u9ns-sidharth8338s-projects.vercel.app/
